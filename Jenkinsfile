@@ -28,7 +28,9 @@ pipeline {
                 echo "Migrating servers"
                 venv/bin/python manage.py migrate
                 echo "starting server"
-                nohup venv/bin/python manage.py runserver 0.0.0.0:8001 --noreload > /tmp/server.log 2>&1 &
+                setsid  venv/bin/python manage.py runserver 0.0.0.0:8001 --noreload > /tmp/server.log 2>&1 &
+                 sleep 5
+                curl -s http://localhost:8001 || echo "Server not responding"
                 '''
             }
         }
