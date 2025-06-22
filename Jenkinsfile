@@ -27,10 +27,8 @@ pipeline {
                 sh '''
                 echo "Migrating servers"
                 venv/bin/python manage.py migrate
-                echo "starting server"
-                setsid  venv/bin/python manage.py runserver 0.0.0.0:8001 --noreload > /tmp/server.log 2>&1 &
-                 sleep 5
-                curl -s http://localhost:8001 || echo "Server not responding"
+                echo "starting server inside tmux session"
+                tmux new-session -d -s djangoserver "venv/bin/python manage.py runserver 0.0.0.0:8001 --noreload > /tmp/server.log 2>&1"
                 '''
             }
         }
