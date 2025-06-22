@@ -6,10 +6,9 @@ pipeline {
         stage('Environment Setup') {
             steps {
                 sh '''
-                #!/bin/bash
                 echo "creating virtual env..." 
                 python3 -m venv venv
-                source venv/bin/activate
+                . venv/bin/activate
                 '''
             }
         }
@@ -18,7 +17,7 @@ pipeline {
             steps {
                 sh '''
                 echo "Installing Django dependencies..."
-                pip install django
+                venv/bin/pip install django
                 '''
             }
         }
@@ -27,9 +26,9 @@ pipeline {
             steps {
                 sh '''
                 echo "Migrating servers"
-                python manage.py migrate
+                venv/bin/python manage.py migrate
                 echo "starting server"
-                python manage.py runserver 0.0.0.0:8000 > /tmp/server.log 2>&1
+                venv/bin/python manage.py runserver 0.0.0.0:8001 > /tmp/server.log 2>&1
                 '''
             }
         }
