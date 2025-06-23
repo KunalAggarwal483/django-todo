@@ -3,6 +3,9 @@ pipeline {
 
     stages {
         stage('Build Docker Image') {
+            options {
+            timeout(time: 3, unit: 'MINUTES')
+            }
             steps {
                 sh '''
                 echo "Building Docker image..."
@@ -20,5 +23,11 @@ pipeline {
                 '''
             }
         }
+    }
+
+    post {
+    always {
+        sh 'docker image prune -f'
+    }
     }
 }
