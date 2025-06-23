@@ -5,7 +5,5 @@ __pycache__/
 .venv/
 env/
 *.log
-*.db
-*.sqlite3
 .git/
 .gitignore
