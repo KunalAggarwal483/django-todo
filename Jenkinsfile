@@ -2,33 +2,21 @@ pipeline {
     agent any
 
     stages {
-
-        stage('Environment Setup') {
+        stage('Build Docker Image') {
             steps {
                 sh '''
-                echo "creating virtual env..." 
-                python3 -m venv venv
-                . venv/bin/activate
+                echo "Building Docker image..."
+                docker build -t django-todo .
                 '''
             }
         }
 
-        stage('Install Dependencies') {
+        stage('Run Docker Container') {
             steps {
                 sh '''
-                echo "Installing Django dependencies..."
-                venv/bin/pip install django
-                '''
-            }
-        }
-
-        stage('Build and Deploy') {
-            steps {
-                sh '''
-                echo "Migrating servers"
-                venv/bin/python manage.py migrate
-                echo "starting server inside tmux session"
-                tmux new-session -d -s djangoserver "venv/bin/python manage.py runserver 0.0.0.0:8001 --noreload > /tmp/server.log 2>&1"
+                echo "Running Docker container..."
+                docker rm -f django-todo-container || true
+                docker run -d --name django-todo-container -p 8000:8000 django-todo
                 '''
             }
         }
