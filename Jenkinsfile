@@ -6,7 +6,7 @@ pipeline {
             steps {
                 sh '''
                 echo "Building Docker image..."
-                sudo docker build -t django-todo .
+                sudo -S docker build -t django-todo .
                 '''
             }
         }
@@ -15,8 +15,8 @@ pipeline {
             steps {
                 sh '''
                 echo "Running Docker container..."
-                sudo docker rm -f django-todo-container || true
-                sudo docker run -d --name django-todo-container -p 8000:8000 django-todo
+                sudo -S docker rm -f django-todo-container || true
+                sudo -S docker run -d --name django-todo-container -p 8000:8000 django-todo
                 '''
             }
         }
