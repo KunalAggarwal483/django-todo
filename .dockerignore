@@ -1,0 +1,43 @@
+# Ignore Python cache and compiled files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Ignore Django static and media files (if generated at runtime)
+staticfiles/
+media/
+
+# Ignore local database
+*.sqlite3
+db.sqlite3
+
+# Ignore environment and dependency files
+.env
+.env.*
+*.egg-info/
+.eggs/
+
+# Ignore OS and editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Ignore test and coverage output
+htmlcov/
+.coverage
+.tox/
+
+# Ignore build artifacts
+dist/
+build/
+
+# Ignore pip cache
+pip-wheel-metadata/
+__pypackages__/
+
+# Ignore Docker-related files
+Dockerfile
+.dockerignore
+Jenkinsfile
