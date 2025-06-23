@@ -9,5 +9,3 @@ env/
 *.sqlite3
 .git/
 .gitignore
-Dockerfile
-Jenkinsfile
